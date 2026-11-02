@@ -3,7 +3,11 @@ import { Train, Bus, Car, MapPin } from 'lucide-react';
 import { Illustration } from '@/components/illustration/illustration';
 import { PageLayout } from '@/components/layout/page-layout';
 
+import { FESTIVAL, formatFestivalAddress } from '@/lib/config/festival';
+
 export default function AccessPage() {
+  const { venue } = FESTIVAL;
+
   return (
     <PageLayout
       illustration={<Illustration alt="" src="pin.png" />}
@@ -22,8 +26,8 @@ export default function AccessPage() {
             </div>
             <h2 className="font-medium text-lg">会場</h2>
           </div>
-          <p className="text-lg font-medium">豊田高専</p>
-          <p className="text-muted-foreground">〒471-0067 愛知県豊田市栄生町２丁目１−１</p>
+          <p className="text-lg font-medium">{venue.name}</p>
+          <p className="text-muted-foreground">{formatFestivalAddress()}</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-4">
@@ -35,8 +39,9 @@ export default function AccessPage() {
               <h3 className="font-medium">電車でお越しの方</h3>
             </div>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>名鉄「梅坪駅」より徒歩25分</li>
-              <li>愛知環状鉄道「愛環梅坪駅」より徒歩21分</li>
+              {venue.train.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
             </ul>
           </div>
 
@@ -48,8 +53,9 @@ export default function AccessPage() {
               <h3 className="font-medium">バスでお越しの方</h3>
             </div>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>上豊田駅・豊田市駅より、おいでんバスで約10分</li>
-              <li>「西山公園」下車して徒歩9分</li>
+              {venue.bus.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
             </ul>
           </div>
 
@@ -61,31 +67,33 @@ export default function AccessPage() {
               <h3 className="font-medium">お車でお越しの方</h3>
             </div>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>正門からの出入りはできません</li>
-              <li>第１駐車場横の出入り口からお入りください</li>
-              <li>
-                詳しくは豊田高専公式ホームページをご覧ください。
-                <a href="https://www.toyota-ct.ac.jp/life/gakuseikaigyouji/" rel="noopener noreferrer" target="_blank">
-                  https://www.toyota-ct.ac.jp/life/gakuseikaigyouji/
-                </a>
-              </li>
+              {venue.car.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
             </ul>
           </div>
         </div>
 
         <div className="rounded-md bg-paper-2 p-6">
-          <h3 className="font-medium mb-4">地図（Google Maps）</h3>
-          <div className="aspect-video">
-            <iframe
-              allowFullScreen
-              className="w-full h-full"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13056.517005433541!2d137.1309265!3d35.1034833!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60035ff6c15d45cf%3A0xd87866e720aee934!2z6LGK55Sw5bel5qWt6auY562J5bCC6ZaA5a2m5qCh!5e0!3m2!1sja!2sjp!4v1779592691840!5m2!1sja!2sjp"
-              style={{ border: 0 }}
-              title="Google マップ（豊田高専へのアクセス）"
-            />
-          </div>
+          <h3 className="font-medium mb-4">地図</h3>
+          {venue.mapEmbedUrl ? (
+            <div className="aspect-video">
+              <iframe
+                allowFullScreen
+                className="w-full h-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                src={venue.mapEmbedUrl}
+                style={{ border: 0 }}
+                title={`${venue.name}へのアクセス`}
+              />
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              地図の埋め込みはまだありません。lib/config/festival.ts の venue.mapEmbedUrl に Google
+              マップの埋め込み URL を入れてください。
+            </p>
+          )}
         </div>
       </div>
     </PageLayout>

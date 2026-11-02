@@ -1,32 +1,12 @@
 {
-  "service": "koyofes2026",
-  "exportedAt": "2026-11-02T11:09:00+09:00",
+  "service": "template",
+  "exportedAt": "2099-01-15T00:00:00+09:00",
   "depth": 3,
-  "note": "Published content snapshot. stamps was probed and does not exist; stamp booths are derived from events.",
+  "note": "Dummy snapshot for the template. Replace by editing these JSON files, or by running cms:export against microCMS.",
   "endpoints": [
-    {
-      "endpoint": "events",
-      "type": "list",
-      "count": 65,
-      "file": "events.json"
-    },
-    {
-      "endpoint": "news",
-      "type": "list",
-      "count": 27,
-      "file": "news.json"
-    },
-    {
-      "endpoint": "parts",
-      "type": "list",
-      "count": 10,
-      "file": "parts.json"
-    },
-    {
-      "endpoint": "sponsors",
-      "type": "list",
-      "count": 21,
-      "file": "sponsors.json"
-    }
+    { "endpoint": "events", "type": "list", "count": 7, "file": "events.json" },
+    { "endpoint": "news", "type": "list", "count": 3, "file": "news.json" },
+    { "endpoint": "parts", "type": "list", "count": 4, "file": "parts.json" },
+    { "endpoint": "sponsors", "type": "list", "count": 2, "file": "sponsors.json" }
   ]
 }

@@ -4,12 +4,13 @@ import { Spinner } from '@/components/common/spinner';
 import { PageLayout } from '@/components/layout/page-layout';
 import { StampCollectClient } from '@/components/stamp/stamp-collect-client';
 
+import { festivalPageTitle } from '@/lib/config/festival';
 import { isStampCollectionOpen } from '@/lib/config/stampConfig';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'スタンプ獲得 | こうよう祭 2026',
+  title: festivalPageTitle('スタンプ獲得'),
   robots: {
     index: false,
     follow: false,

@@ -4,8 +4,10 @@ import { Spinner } from '@/components/common/spinner';
 import { PageLayout } from '@/components/layout/page-layout';
 import { StampResetClient } from '@/components/stamp/stamp-reset-client';
 
+import { festivalPageTitle } from '@/lib/config/festival';
+
 export const metadata = {
-  title: 'スタンプ記録リセット（デバッグ用） | こうよう祭 2026',
+  title: festivalPageTitle('スタンプ記録リセット（デバッグ用）'),
   robots: {
     index: false,
     follow: false,

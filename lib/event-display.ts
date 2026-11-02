@@ -1,5 +1,6 @@
-import { formatEventTimeRange } from '@/lib/event-time';
 import type { Event } from '@/lib/types/event';
+
+import { formatEventTimeRange } from '@/lib/event-time';
 
 /** participantsUL がこの値以上のとき「一般（制限なし）」と表示 */
 const UNLIMITED_PARTICIPANTS_THRESHOLD = 9999;

@@ -1,3 +1,5 @@
+import { FESTIVAL, festivalInstantMs } from '@/lib/config/festival';
+
 /**
  * 企画展リアルタイムランキングの定数。
  * 開催時のみ RANKING_ENABLED=true にする（ナビ・投票・API）。
@@ -36,8 +38,8 @@ export function getWaitLevelLabel(value: number): string {
   return RANKING_CONFIG.waitLevels.find((level) => level.value === value)?.label ?? '';
 }
 
-/** 文化祭の開始（日本時間 2026-10-31 09:00）。これより前はランキング一覧を出さない。 */
-export const RANKING_AGGREGATION_START_MS = Date.parse('2026-10-31T09:00:00+09:00');
+/** 文化祭の開始（festival.ts の開始日時、日本時間）。これより前はランキング一覧を出さない。 */
+export const RANKING_AGGREGATION_START_MS = festivalInstantMs(FESTIVAL.start);
 
 export function isRankingAggregationOpen(now = Date.now()): boolean {
   return now >= RANKING_AGGREGATION_START_MS;

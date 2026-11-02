@@ -1,12 +1,13 @@
 import { PageLayout } from '@/components/layout/page-layout';
 import { RankingBoard } from '@/components/ranking/ranking-board';
 
+import { festivalPageTitle } from '@/lib/config/festival';
 import { isRankingAggregationOpen, isRankingEnabled } from '@/lib/config/rankingConfig';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'リアルタイムランキング | こうよう祭 2026',
+  title: festivalPageTitle('リアルタイムランキング'),
   description: 'クラス・学科展・有志展示の総合順位、トレンド、いまの並びの目安。',
 };
 

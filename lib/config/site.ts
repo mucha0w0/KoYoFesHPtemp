@@ -1,2 +1,4 @@
-/** 本番の公開オリジン。apex は www へ転送されるので、sitemap は転送先を載せる。 */
-export const SITE_ORIGIN = 'https://www.koyosai.com';
+import { FESTIVAL } from '@/lib/config/festival';
+
+/** 公開オリジン。sitemap と metadataBase に使う。本番ドメインは festival.ts で書き換える。 */
+export const SITE_ORIGIN = FESTIVAL.siteOrigin;

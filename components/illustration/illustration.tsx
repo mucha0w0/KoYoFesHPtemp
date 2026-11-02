@@ -7,21 +7,15 @@ type CssLength = number | string;
  * スマホは 148px。PC は 240px。
  * 右端は本文シェル（max-w-7xl の px-4）に揃える。描画の下には 36px 残す。
  * 透明余白は 1024px 四方のキャンバスに対する、描画の右・下の空き。
- * post.png は見た目に合わせた値。他は不透明画素の外接。
+ * テンプレートの挿絵は余白のない正方形なので 0。本番の絵に合わせて足す。
  */
 const DEFAULT_ILLUSTRATION_SIZE = 'clamp(148px, 20vw, 240px)';
 const DEFAULT_BACKGROUND = 'var(--paper)';
 const CANVAS_PX = 1024;
 
-const DEFAULT_DRAWING_INSET_PX = { right: 32, bottom: 136 };
+const DEFAULT_DRAWING_INSET_PX = { right: 0, bottom: 0 };
 
-const DRAWING_INSET_PX: Record<string, { right: number; bottom: number }> = {
-  'post.png': DEFAULT_DRAWING_INSET_PX,
-  'news.png': { right: 95, bottom: 155 },
-  'pc.png': { right: 24, bottom: 144 },
-  'pin.png': { right: 67, bottom: 111 },
-  'time.png': { right: 124, bottom: 106 },
-};
+const DRAWING_INSET_PX: Record<string, { right: number; bottom: number }> = {};
 
 function drawingInset(src: string): { right: number; bottom: number } {
   const file = src.split('/').pop() ?? src;

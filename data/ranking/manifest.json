@@ -1,7 +1,7 @@
 {
-  "exportedAt": "2026-11-02T04:23:30.857Z",
-  "votes": 8391,
-  "visits": 10366,
-  "waits": 8390,
-  "note": "visitor_id はファイル内の連番に置き換え済み。DATABASE_URL が無いときは snapshot.json を読む。"
+  "exportedAt": "2000-01-01T00:00:00.000Z",
+  "votes": 0,
+  "visits": 0,
+  "waits": 0,
+  "note": "テンプレート用の空スナップショット。DATABASE_URL が無いときはこの JSON を読む。開催後は npm run ranking:export で上書きする。"
 }
