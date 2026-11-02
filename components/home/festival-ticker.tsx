@@ -1,6 +1,8 @@
 import { Fragment } from 'react';
 
-const TICKER_PHRASES = ['こうよう祭', 'KoYoFes', '1dearland'] as const;
+import { FESTIVAL } from '@/lib/config/festival';
+
+const TICKER_PHRASES = FESTIVAL.ticker;
 const TICKER_REPEAT = 8;
 
 function TickerDot() {

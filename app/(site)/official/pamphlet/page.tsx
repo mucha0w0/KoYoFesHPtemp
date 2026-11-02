@@ -4,6 +4,8 @@ import { Illustration } from '@/components/illustration/illustration';
 import { PageLayout } from '@/components/layout/page-layout';
 import { Button } from '@/components/ui/button';
 
+import { FESTIVAL } from '@/lib/config/festival';
+
 export default function PamphletPage() {
   return (
     <PageLayout
@@ -12,23 +14,25 @@ export default function PamphletPage() {
         pages: ['/events/list', '/guide/map', '/guide/faq'],
         background: 'paper-2',
       }}
-      subtitle="こうよう祭2026公式パンフレット"
+      subtitle={`${FESTIVAL.name}のパンフレット（サンプル）`}
       title="パンフレット"
     >
       <div className="max-w-2xl mx-auto space-y-8">
         <div className="ink-shell bg-card p-8 text-center">
-          {/* PDFビューア */}
+          <p className="mb-6 text-sm text-muted-foreground">
+            表示中の PDF はダミーです。public/pamphlet-sample.pdf を本番のパンフレットに差し替えてください。
+          </p>
           <div className="w-full mb-6 aspect-[1/1.414]">
             <iframe
               className="w-full h-full"
               loading="lazy"
-              src="/pamf.pdf"
+              src={FESTIVAL.pamphletPath}
               style={{ border: 0 }}
               title="公式パンフレット PDF"
             />
           </div>
           <Button asChild className="px-6" size="lg">
-            <a download href="/pamf.pdf">
+            <a download href={FESTIVAL.pamphletPath}>
               <Download className="h-5 w-5" />
               PDFをダウンロード
             </a>

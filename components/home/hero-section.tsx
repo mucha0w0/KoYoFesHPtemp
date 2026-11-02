@@ -1,16 +1,18 @@
 import Image from 'next/image';
 
+import { FESTIVAL, FESTIVAL_HERO_ALT } from '@/lib/config/festival';
+
 export function HeroSection() {
   return (
     <section>
-      <div className="relative aspect-1178/295 w-full overflow-hidden">
+      <div className="relative aspect-1200/300 w-full overflow-hidden">
         <Image
           fill
           priority
-          alt="こうよう祭 2026 テーマ 1dearland のコンセプトアート"
+          alt={FESTIVAL_HERO_ALT}
           className="object-contain object-center"
           sizes="100vw"
-          src="/conceptart.jpg"
+          src={FESTIVAL.images.hero}
         />
       </div>
     </section>

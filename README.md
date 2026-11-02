@@ -1,6 +1,30 @@
-# KoYoFes Website
+# KoYoFes Website（テンプレート）
 
-2026年度 **こうよう祭（KoYoFes）** の公式ウェブサイトです。企画情報の検索・閲覧、タイムテーブル、スタンプラリー、企画展ランキング、お知らせなど、来場者向けの情報を提供します。
+これは **こうよう祭（KoYoFes）** の公式サイトを、次の代が「Use this template」で始められるようにしたテンプレートです。企画の検索、タイムテーブル、スタンプラリー、企画展ランキング、お知らせなど、来場者向けの機能はそのまま残しています。
+
+中身（企画・お知らせ・協賛・写真・日程・テーマ・連絡先）は、架空のダミーです。環境変数が無くても、静的 JSON だけでビルドして表示できます。
+
+2026年度の本番サイトは、このテンプレートには入っていません。コードとデータの正は [mucha0w0/koyofes2026](https://github.com/mucha0w0/koyofes2026) のタグ `koyofes2026-final` です。元リポジトリは変更しないでください。
+
+## 次の代が最初にやること
+
+1. **`lib/config/festival.ts`** を開く。開催年、日時、テーマ、会場、連絡先、SNS、公開 URL、スタンプの必要数を書き換える。初期値は 2099 年・サンプル会場・`example.com`。
+2. 企画・お知らせ・パート・協賛は、どちらか。
+   - 環境変数なしで進める: `data/cms/*.json` を編集する。フィールド名は microCMS のレスポンスのまま。
+   - microCMS を使う: `MICROCMS_API_KEY` と `MICROCMS_SERVICE_DOMAIN` を入れる。キーがあるビルドはライブの API を読む。
+3. 画像を差し替える。
+   - テーマの横長画像: `public/conceptart.png` と共有用の `public/og.png`
+   - パンフレット: `public/pamphlet-sample.pdf`
+   - 構内図: `app/(site)/guide/map/sample-campus.png`
+   - 展示地図: `public/kounaizu/sample-indoor.png` と `sample-outdoor.png`
+   - 挿絵: `public/Illustration/`
+   - 企画などの画像: `public/cms-images/`（JSON が microCMS の URL を指すようになったら `npm run cms:mirror-local`）
+4. よくある質問は `lib/faqs.json`。アクセスや問い合わせの文面は `festival.ts` を読むページと、FAQ の両方を合わせる。
+5. ゲスト・PR 動画も `festival.ts` の `guest` と `prVideo`。
+
+ダミーの企画名は「サンプル企画1」、協賛は「ダミー協賛企業A」、リンクは `https://example.com` です。実在の個人名、学籍番号、メール、電話、Instagram ID、協賛ロゴは入れないでください。入れるなら、その年の公開用データとして、自分たちで集めたものだけにしてください。
+
+消した 2026 年度の写真や PDF は、このテンプレートの最新コミットにはありません。Git の履歴には残っています。履歴ごと消すかは、リポジトリの所有者の判断です。
 
 ## 目次
 
@@ -209,7 +233,7 @@
 ```bash
 # 1. リポジトリをクローン
 git clone <repository-url>
-cd test2_2026-05-19
+cd <repository-name>
 
 # 2. 依存パッケージをインストール
 npm install
@@ -236,7 +260,7 @@ npm run dev
 | 変数名 | 説明 | 例 |
 |--------|------|-----|
 | `MICROCMS_API_KEY` | microCMS の API キー | `xxxxxxxx` |
-| `MICROCMS_SERVICE_DOMAIN` | サービスドメイン（`.microcms.io` より前の部分） | `koyofes` |
+| `MICROCMS_SERVICE_DOMAIN` | サービスドメイン（`.microcms.io` より前の部分） | `your-service` |
 | `MICROCMS_WEBHOOK_SECRET` | Webhook 署名（HMAC）のシークレット。microCMS のカスタム通知に同じ値を入れる | `（ランダムな文字列）` |
 | `VERCEL_DEPLOY_HOOK_URL` | 企画・お知らせの**新しい URL** を増やすときの Vercel Deploy Hook。編集だけなら未使用 | `https://api.vercel.com/v1/integrations/deploy/...` |
 
@@ -347,10 +371,11 @@ microCMS での更新は、本番では Webhook で反映されます。既存�
 | テーマページ本文 | `app/(site)/about/theme/page.tsx` | `/about/theme` |
 | 概要ページ本文 | `components/about/about-section.tsx` など | `/about/overview` |
 | アクセス情報 | `app/(site)/guide/access/page.tsx` | `/guide/access` |
-| 会場マップ画像 | `app/(site)/guide/map/kounaizu.jpg` | `/guide/map` |
+| 会場マップ画像 | `app/(site)/guide/map/sample-campus.png` と `public/kounaizu/` | `/guide/map` |
 | お問い合わせ | `app/(site)/guide/contact/page.tsx` | `/guide/contact` |
 | 公式 Instagram | `lib/config/social.ts` | PR動画、開発用ルックブック |
-| パンフレット PDF | `public/koyofes2026_pamphlet.pdf` | `/official/pamphlet` |
+| 開催年・日時・テーマ・会場・連絡先・SNS | `lib/config/festival.ts` | トップ、概要、アクセス、問い合わせ、メタデータ |
+| パンフレット PDF | `public/pamphlet-sample.pdf` | `/official/pamphlet` |
 | 挿絵 | `public/Illustration/` と `Illustration` | 配置したページ |
 
 ### 挿絵
@@ -427,10 +452,10 @@ import { Illustration } from '@/components/illustration/illustration';
 
 1. microCMS の `events` から、カテゴリが `class-exhibit` または `volunteer-exhibit` の企画をスタンプ対象ブースとして取得
 2. 各ブースにランダムトークンを割り当て（`STAMP_TOKEN_MAP`）
-3. NFC / QR コードの URL は `https://koyosai.com/stamp/collect?token=<トークン>` 形式
+3. NFC / QR コードの URL は `{siteOrigin}/stamp/collect?token=<トークン>` 形式（`siteOrigin` は `lib/config/festival.ts`。テンプレート初期値は `https://example.com`）
 4. 来場者が URL にアクセスすると `/api/stamp` が署名付きスタンプを発行
-5. スタンプはブラウザの LocalStorage に保存（キー: `koyosai_stamp_data_2026`）
-6. `/api/stamp/verify` で署名を検証し、10 個以上でクリア判定
+5. スタンプはブラウザの LocalStorage に保存（キーは `festival.ts` の `stamp.storageKey`。初期値は `koyosai_stamp_data_2099`）
+6. `/api/stamp/verify` で署名を検証し、`stamp.requiredStampCount` 個以上でクリア判定（初期値は 2。ダミーの対象企画が 2 件のため）
 
 ### トークン生成
 
@@ -524,16 +549,18 @@ node scripts/generate-stamp-tokens.mjs --force-rotate
 
 スナップショットの中身は公開済みの一覧 API レスポンスです（`{"contents":[...],"totalCount":N}`、`depth=3`）。
 
-| ファイル | 件数 |
+| ファイル | テンプレートの件数 |
 |----------|------|
-| `data/cms/events.json` | 企画 65 |
-| `data/cms/news.json` | お知らせ 27 |
-| `data/cms/parts.json` | パート 10 |
-| `data/cms/sponsors.json` | 協賛 21 |
+| `data/cms/events.json` | 企画 7（各カテゴリのサンプル） |
+| `data/cms/news.json` | お知らせ 3 |
+| `data/cms/parts.json` | パート 4（司会・パート・幹部・もりあげ隊） |
+| `data/cms/sponsors.json` | 協賛 2 |
+
+画像 URL は、テンプレートでは `/cms-images/...` のローカルパスです。`lib/microcms/image-manifest.json` は空です。microCMS から書き出したあとは、URL が `images.microcms-assets.io` に戻り、マニフェストがローカルパスへ差し替えます。
 
 `stamps` というエンドポイントはありません。スタンプ帳は企画のカテゴリから導きます。
 
-画像 URL は JSON の中では `images.microcms-assets.io` のままです。表示する直前に `lib/microcms/image-manifest.json` が `/cms-images/...` へ差し替えます。マニフェストに無い URL だけ、従来どおり microCMS の画像を直接取りに行きます。
+microCMS から書き出した JSON では、画像 URL は `images.microcms-assets.io` のままです。表示する直前に `lib/microcms/image-manifest.json` が `/cms-images/...` へ差し替えます。マニフェストに無い URL だけ、microCMS の画像を直接取りに行きます。テンプレートのダミー JSON は、最初からローカルパスを指しています。
 
 ### microCMS に戻す
 
@@ -625,21 +652,21 @@ docs: README の環境変数セクションを更新
 
 ### コンテンツ
 
-- [ ] microCMS の企画・お知らせ・パート・協賛データを新年度用に更新
-- [ ] テーマページ（`/about/theme`）の文案・テーマ名
-- [ ] 概要ページ（`/about/overview`）の開催日・概要
-- [ ] FAQ（`lib/faqs.json`）の内容
-- [ ] パンフレット PDF（`public/koyofes2026_pamphlet.pdf`）の差し替え
-- [ ] 挿絵（`public/Illustration/`）と、各ページの `Illustration` の位置・大きさ
-- [ ] 会場マップ画像（`app/(site)/guide/map/kounaizu.jpg`）
-- [ ] 公式 SNS のアカウント・URL（`lib/config/social.ts` の `enabled` と URL）
-- [ ] お問い合わせ先（`/guide/contact`）
+- [ ] `lib/config/festival.ts` の年・日時・テーマ・会場・連絡先・SNS・`siteOrigin`
+- [ ] microCMS、または `data/cms` の企画・お知らせ・パート・協賛
+- [ ] テーマ画像（`public/conceptart.png`）と OGP（`public/og.png`）
+- [ ] FAQ（`lib/faqs.json`）。日程と会場は `festival.ts` と文面を合わせる
+- [ ] パンフレット PDF（`public/pamphlet-sample.pdf`）
+- [ ] 挿絵（`public/Illustration/`）。余白を戻すときは `components/illustration/illustration.tsx` の inset
+- [ ] 構内図（`app/(site)/guide/map/sample-campus.png`）と展示地図（`public/kounaizu/`）
+- [ ] ゲストと PR 動画（`festival.ts` の `guest` / `prVideo`）
+- [ ] お問い合わせ先（`festival.ts` の `contact`）
 
 ### 設定・コード
 
-- [ ] `lib/config/stampConfig.ts` の `storageKey`（LocalStorage キー）を年度に合わせて変更
-- [ ] `lib/config/rankingConfig.ts` の Cookie 名・トレンド窓など
-- [ ] メタデータ（`app/layout.tsx` の `title` / `description`）
+- [ ] `festival.ts` の `stamp.storageKey` が年度ごとに変わること（年を変えるとキーも変わる）
+- [ ] `lib/config/rankingConfig.ts` の Cookie 名・トレンド窓など。開始時刻は `festival.ts`
+- [ ] メタデータ（`app/layout.tsx` は `festival.ts` の年と祭名を使う）
 - [ ] スタンプラリートークンの再生成と Vercel 環境変数の更新
 - [ ] NFC タグへの URL 書き込み
 

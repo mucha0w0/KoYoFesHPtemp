@@ -2,18 +2,18 @@ import Image from 'next/image';
 
 const EXHIBITION_MAPS = [
   {
-    src: '/kounaizu/tenji-kounai.webp',
-    width: 4320,
-    height: 2430,
+    src: '/kounaizu/sample-indoor.png',
+    width: 1200,
+    height: 675,
     title: '校内の展示',
-    alt: '校内の展示地図。講義棟の1階から3階、新講義棟、一般管理棟、学生玄関と、各展示の番号と名前が描かれています。',
+    alt: '校内の展示地図のサンプル。建物名や企画の位置は入っていません。',
   },
   {
-    src: '/kounaizu/tenji-soto2.jpg',
-    width: 4320,
-    height: 2430,
+    src: '/kounaizu/sample-outdoor.png',
+    width: 1200,
+    height: 675,
     title: '屋外の展示',
-    alt: '屋外の展示地図。低層棟、図書館、専攻科棟、福利施設、グラウンド周辺の展示位置が描かれています。',
+    alt: '屋外の展示地図のサンプル。建物名や企画の位置は入っていません。',
   },
 ] as const;
 

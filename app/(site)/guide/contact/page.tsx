@@ -5,13 +5,15 @@ import { Illustration } from '@/components/illustration/illustration';
 import { PageLayout } from '@/components/layout/page-layout';
 import { RelatedLinks } from '@/components/layout/related-links';
 
+import { FESTIVAL, formatFestivalAddress } from '@/lib/config/festival';
+
 export default function ContactPage() {
   return (
     <PageLayout fullWidth subtitle="ご質問・ご要望はこちらから" title="お問い合わせ">
       <div className="mx-auto w-full max-w-7xl px-4 pt-10 pb-12 md:pt-12 md:pb-16">
         <div className="mx-auto max-w-2xl space-y-6">
           <div className="ink-shell bg-card p-6">
-            <h2 className="font-medium text-lg mb-4">連絡先（学生課学生支援係）</h2>
+            <h2 className="font-medium text-lg mb-4">連絡先（{FESTIVAL.contact.office}）</h2>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="rounded-md p-2 bg-paper-2">
@@ -19,7 +21,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">メール</p>
-                  <p className="font-medium">gakusei☆toyota-ct.ac.jp （☆マークを@に変えて送信）</p>
+                  <p className="font-medium">{FESTIVAL.contact.email}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -28,7 +30,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">電話</p>
-                  <p className="font-medium">0565-36-5913</p>
+                  <p className="font-medium">{FESTIVAL.contact.phone}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -37,7 +39,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">住所</p>
-                  <p className="font-medium">〒471-0067 愛知県豊田市栄生町２丁目１−１</p>
+                  <p className="font-medium">{formatFestivalAddress()}</p>
                 </div>
               </div>
             </div>

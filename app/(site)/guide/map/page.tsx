@@ -4,7 +4,7 @@ import { ExhibitionMaps } from '@/components/guide/exhibition-maps';
 import { Illustration } from '@/components/illustration/illustration';
 import { PageLayout } from '@/components/layout/page-layout';
 
-import kounaizu from './kounaizu.jpg';
+import campusMap from './sample-campus.png';
 
 export default function MapPage() {
   return (
@@ -24,10 +24,10 @@ export default function MapPage() {
             <div className="overflow-hidden rounded-[calc(var(--radius)-var(--shell-stroke))]">
               <Image
                 priority
-                alt="豊田高専の構内図。正門、駐車場、各学科棟、講義棟、図書館、体育館、競技場などが記載されています。"
+                alt="サンプルの構内図。正門や校舎の位置は描いていません。本番の地図に差し替えてください。"
                 className="h-auto w-full"
                 sizes="(min-width: 1280px) 1248px, calc(100vw - 32px)"
-                src={kounaizu}
+                src={campusMap}
               />
             </div>
           </div>

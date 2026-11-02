@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
 
+import { FESTIVAL, FESTIVAL_HERO_ALT, FESTIVAL_SITE_NAME } from '@/lib/config/festival';
+
 /**
  * 企画ページ以外の共有画像。
- * public/og.jpg は public/conceptart.jpg を 1200×630 の中央に収めたもの。
- * コンセプトアートを差し替えたら、同じ構図で作り直す。
+ * public/og.png はプレースホルダー。テーマ画像を差し替えたら、同じ横長で作り直す。
  */
 export const DEFAULT_SHARE_IMAGE = {
-  url: '/og.jpg',
-  width: 1200,
-  height: 630,
-  alt: 'こうよう祭 2026 テーマ 1dearland のコンセプトアート',
+  url: FESTIVAL.images.og,
+  width: FESTIVAL.images.ogWidth,
+  height: FESTIVAL.images.ogHeight,
+  alt: FESTIVAL_HERO_ALT,
 } as const;
 
 type ShareImage = {
@@ -37,7 +38,7 @@ export function shareMetadata(
 
   return {
     openGraph: {
-      siteName: 'こうよう祭 2026',
+      siteName: FESTIVAL_SITE_NAME,
       locale: 'ja_JP',
       type: 'website',
       ...options?.openGraph,

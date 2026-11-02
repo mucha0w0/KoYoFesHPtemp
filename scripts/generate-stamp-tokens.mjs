@@ -35,7 +35,18 @@ const CATEGORY_LABEL = {
   'class-exhibit': 'クラス・学科展',
   'volunteer-exhibit': '有志展示',
 };
-const COLLECT_BASE_URL = 'https://koyosai.com/stamp/collect';
+function readSiteOrigin() {
+  const source = readFileSync(join(ROOT, 'lib/config/festival.ts'), 'utf8');
+  const match = source.match(/siteOrigin:\s*'([^']+)'/);
+  if (!match) {
+    console.error('lib/config/festival.ts の siteOrigin を読めません。');
+    process.exit(1);
+  }
+  return match[1];
+}
+
+/** NFC / QR に書く収集 URL。公開オリジンは lib/config/festival.ts。 */
+const COLLECT_BASE_URL = `${readSiteOrigin()}/stamp/collect`;
 
 const forceRotate = process.argv.includes('--force-rotate');
 

@@ -3,6 +3,7 @@ import { Zen_Kaku_Gothic_New, Zen_Maru_Gothic } from 'next/font/google';
 
 import type { Metadata } from 'next';
 
+import { FESTIVAL, FESTIVAL_SITE_NAME } from '@/lib/config/festival';
 import { SITE_ORIGIN } from '@/lib/config/site';
 import { DEFAULT_SHARE_IMAGE, shareMetadata } from '@/lib/metadata/share';
 
@@ -27,8 +28,8 @@ const zenMaruGothic = Zen_Maru_Gothic({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
-  title: 'こうよう祭 2026 | 公式ウェブサイト',
-  description: '令和8年度 こうよう祭の公式ウェブサイトです。企画情報、来場案内など。',
+  title: `${FESTIVAL_SITE_NAME} | 公式ウェブサイト`,
+  description: `${FESTIVAL.year}年度 ${FESTIVAL.name}の公式ウェブサイトです。企画情報、来場案内など。テンプレートの初期値はダミーです。`,
   ...shareMetadata(DEFAULT_SHARE_IMAGE),
   icons: {
     icon: [

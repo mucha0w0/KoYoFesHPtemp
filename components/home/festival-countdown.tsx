@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-// ── 設定 ───────────────────────────────────────────────
+import { FESTIVAL } from '@/lib/config/festival';
+
+// ── 設定（日時は lib/config/festival.ts） ──────────────
 const CONFIG = {
-  date: { year: 2026, month: 10, day: 31, hour: 9, minute: 0, second: 0 },
-  enddate: { year: 2026, month: 11, day: 1, hour: 17, minute: 0, second: 0 },
-  name: 'こうよう祭開催',
+  date: FESTIVAL.start,
+  enddate: FESTIVAL.end,
+  name: `${FESTIVAL.name}開催`,
 } as const;
 
 // ── 型定義 ─────────────────────────────────────────────
@@ -154,11 +156,15 @@ function TimeCounter({ timeLeft }: { timeLeft: TimeLeft }) {
 }
 
 function OpeningMessage() {
-  return <p className="font-display text-[28px] font-medium leading-none">こうよう祭、ただいま開催中！</p>;
+  return <p className="font-display text-[28px] font-medium leading-none">{FESTIVAL.name}、ただいま開催中！</p>;
 }
 
 function ClosingMessage() {
-  return <p className="font-display text-[28px] font-medium leading-none">2026年度こうよう祭は終了しました</p>;
+  return (
+    <p className="font-display text-[28px] font-medium leading-none">
+      {FESTIVAL.year}年度{FESTIVAL.name}は終了しました
+    </p>
+  );
 }
 
 // ── メインコンポーネント ────────────────────────────────

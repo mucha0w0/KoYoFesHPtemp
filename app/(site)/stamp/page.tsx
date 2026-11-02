@@ -7,11 +7,12 @@ import { RelatedLinks } from '@/components/layout/related-links';
 import { StampBook } from '@/components/stamp/stamp-book';
 import { StampSuggestions } from '@/components/stamp/stamp-suggestions';
 
+import { festivalPageTitle } from '@/lib/config/festival';
 import { isRankingDatabaseConfigured, isRankingEnabled } from '@/lib/config/rankingConfig';
 import { getStampBoothGroups } from '@/lib/stamp/booths';
 
 export const metadata = {
-  title: 'スタンプラリー | こうよう祭 2026',
+  title: festivalPageTitle('スタンプラリー'),
   description:
     'クラス・学科展・有志展示のデジタルスタンプラリー。スタンプ帳の確認とふくびき参加券の引き換えができます。',
 };
